@@ -16,6 +16,26 @@
     
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Ocultar contenido hasta verificar autenticación -->
+    <style>
+        body { opacity: 0; transition: opacity 0.3s ease-in; }
+        body.authenticated { opacity: 1; }
+    </style>
+    
+    <!-- Verificación de autenticación antes de renderizar -->
+    <script>
+        (function() {
+            const token = localStorage.getItem('novaguardian_token');
+            if (!token) {
+                window.location.href = 'login.html';
+            } else {
+                document.addEventListener('DOMContentLoaded', function() {
+                    document.body.classList.add('authenticated');
+                });
+            }
+        })();
+    </script>
 </head>
 <body>
     
