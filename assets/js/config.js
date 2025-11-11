@@ -1,7 +1,7 @@
 
 
 const CONFIG = {
-    API_URL: 'http://localhost:8000',
+    API_URL: 'https://novaguardianbackend-production.up.railway.app',
     
     ENDPOINTS: {
         LOGIN: '/api/auth',
