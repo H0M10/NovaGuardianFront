@@ -1,0 +1,198 @@
+
+
+.filters-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.filters-grid .form-group {
+    margin-bottom: 0;
+}
+
+.checkbox-filter {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 0;
+    cursor: pointer;
+}
+
+.checkbox-filter input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+    cursor: pointer;
+}
+
+.checkbox-filter span {
+    color: var(--text-secondary);
+    font-size: 0.9375rem;
+}
+
+
+.evento-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.detail-item.full-width {
+    grid-column: 1 / -1;
+}
+
+.detail-item label {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.detail-value {
+    font-size: 0.9375rem;
+    color: var(--text-primary);
+    padding: 0.75rem;
+    background-color: #f8fafc;
+    border-radius: 6px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+}
+
+
+.estado-change-section {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+}
+
+.estado-change-section h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 1rem 0;
+}
+
+.estado-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.btn-estado {
+    padding: 0.875rem 1rem;
+    border: 2px solid;
+    border-radius: 8px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    background: white;
+}
+
+.btn-estado svg {
+    width: 20px;
+    height: 20px;
+}
+
+.btn-estado-pendiente {
+    color: var(--warning-color);
+    border-color: var(--warning-color);
+}
+
+.btn-estado-pendiente:hover {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.btn-estado-pendiente.active {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.btn-estado-atendido {
+    color: var(--info-color);
+    border-color: var(--info-color);
+}
+
+.btn-estado-atendido:hover {
+    background-color: var(--info-color);
+    color: white;
+}
+
+.btn-estado-atendido.active {
+    background-color: var(--info-color);
+    color: white;
+}
+
+.btn-estado-resuelto {
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
+
+.btn-estado-resuelto:hover {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-estado-resuelto.active {
+    background-color: var(--success-color);
+    color: white;
+}
+
+.btn-estado:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+
+.badge-tipo-sos {
+    background-color: var(--danger-color);
+    color: white;
+}
+
+.badge-tipo-caida {
+    background-color: #dc2626;
+    color: white;
+}
+
+.badge-tipo-frecuencia {
+    background-color: #ea580c;
+    color: white;
+}
+
+.badge-tipo-bateria {
+    background-color: var(--warning-color);
+    color: white;
+}
+
+.badge-tipo-zona {
+    background-color: var(--info-color);
+    color: white;
+}
+
+
+@media (max-width: 768px) {
+    .filters-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .evento-detail-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .estado-buttons {
+        grid-template-columns: 1fr;
+    }
+}
+
