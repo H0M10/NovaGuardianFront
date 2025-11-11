@@ -1,9 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" style="visibility: hidden;">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - NovaGuardian</title>
+    
+    <!-- Verificación ANTES DE TODO -->
+    <script>
+        (function() {
+            if (!localStorage.getItem('novaguardian_token')) {
+                window.location.replace('login.html');
+            } else {
+                document.documentElement.style.visibility = 'visible';
+            }
+        })();
+    </script>
     
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,29 +27,8 @@
     
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    
-    <!-- Verificación de autenticación INMEDIATA -->
-    <script>
-        // Verificar ANTES de que se renderice cualquier cosa
-        if (!localStorage.getItem('novaguardian_token')) {
-            window.location.replace('login.html');
-        }
-    </script>
-    
-    <!-- Ocultar contenido hasta verificar autenticación -->
-    <style>
-        html { visibility: hidden; opacity: 0; }
-    </style>
 </head>
 <body>
-    
-    <!-- Mostrar contenido solo si hay token -->
-    <script>
-        if (localStorage.getItem('novaguardian_token')) {
-            document.documentElement.style.visibility = 'visible';
-            document.documentElement.style.opacity = '1';
-        }
-    </script>
     
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
     
