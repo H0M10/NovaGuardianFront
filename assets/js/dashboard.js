@@ -310,17 +310,27 @@ function renderRecentAlerts(alerts) {
                           alert.estado === 'Atendido' ? 'badge-info' :
                           'badge-success';
         
-        const fecha = new Date(alert.fecha_hora);
-        const fechaFormateada = fecha.toLocaleDateString('es-MX') + ' ' + 
-                               fecha.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+        // Formatear fecha de manera segura
+        let fechaFormateada = 'Fecha no disponible';
+        if (alert.fecha_hora) {
+            try {
+                const fecha = new Date(alert.fecha_hora);
+                if (!isNaN(fecha.getTime())) {
+                    fechaFormateada = fecha.toLocaleDateString('es-MX') + ' ' + 
+                                     fecha.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
+                }
+            } catch (e) {
+                console.error('Error al formatear fecha:', e);
+            }
+        }
         
         return `
             <tr>
-                <td>${alert.usuario_nombre || 'N/A'}</td>
-                <td>${alert.tipo}</td>
+                <td>${alert.usuario_nombre || alert.nombre_usuario || 'Usuario desconocido'}</td>
+                <td>${alert.tipo || 'N/A'}</td>
                 <td>${alert.descripcion || '-'}</td>
                 <td>${fechaFormateada}</td>
-                <td><span class="badge ${badgeClass}">${alert.estado}</span></td>
+                <td><span class="badge ${badgeClass}">${alert.estado || 'Desconocido'}</span></td>
             </tr>
         `;
     }).join('');
@@ -363,28 +373,37 @@ function renderNotifications(notifications) {
     }
     
     list.innerHTML = notifications.map(notif => {
-        const fecha = new Date(notif.fecha_hora);
-        const ahora = new Date();
-        const diffMinutos = Math.floor((ahora - fecha) / 60000);
+        let tiempoTexto = 'Hace un momento';
         
-        let tiempoTexto;
-        if (diffMinutos < 1) {
-            tiempoTexto = 'Ahora';
-        } else if (diffMinutos < 60) {
-            tiempoTexto = `Hace ${diffMinutos} min`;
-        } else {
-            const horas = Math.floor(diffMinutos / 60);
-            tiempoTexto = `Hace ${horas} h`;
+        if (notif.fecha_hora) {
+            try {
+                const fecha = new Date(notif.fecha_hora);
+                if (!isNaN(fecha.getTime())) {
+                    const ahora = new Date();
+                    const diffMinutos = Math.floor((ahora - fecha) / 60000);
+                    
+                    if (diffMinutos < 1) {
+                        tiempoTexto = 'Ahora';
+                    } else if (diffMinutos < 60) {
+                        tiempoTexto = `Hace ${diffMinutos} min`;
+                    } else {
+                        const horas = Math.floor(diffMinutos / 60);
+                        tiempoTexto = `Hace ${horas} h`;
+                    }
+                }
+            } catch (e) {
+                console.error('Error al calcular tiempo:', e);
+            }
         }
         
         return `
             <div class="notification-item unread" onclick="viewNotification(${notif.id})">
                 <div class="notification-header">
-                    <span class="notification-type">${notif.tipo}</span>
+                    <span class="notification-type">${notif.tipo || 'Evento'}</span>
                     <span class="notification-time">${tiempoTexto}</span>
                 </div>
                 <div class="notification-message">
-                    ${notif.usuario_nombre || 'Usuario'}: ${notif.descripcion || 'Evento detectado'}
+                    ${notif.usuario_nombre || notif.nombre_usuario || 'Usuario'}: ${notif.descripcion || 'Evento detectado'}
                 </div>
             </div>
         `;
